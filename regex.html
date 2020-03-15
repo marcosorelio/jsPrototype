@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+</head>
+
+<body>
+
+    <h2>JavaScript Statements</h2>
+
+    <input type="text" name="numero" id="numero" value="" maxlength="11" onblur="mascara( this, mtel )" />
+    <p></p><label id="message" value=""></label>
+    <p></p><input type="button" onclick="showResult()" value="enviar" />
+    <script>
+
+        function showResult() {
+            let valor = "Numero inválido:";
+
+            let value = document.getElementById("numero").value;
+            
+            console.log("valor original:" + value);
+            //url https://regex101.com/
+            value = value.replace(/[^a-z0-9]/g, '');
+            value = value.replace(/^(\d)\1{9}/g, "");
+            
+
+            console.log("valor regex:" + value);
+            if (value == "" || value.length < 10) {
+                console.log(valor + value + "tamanho:" + value.length);
+                document.getElementById('message').innerHTML = valor + value + " tamanho:" + value.length; 
+                // se algum valor for diferente
+            } else {
+                console.log("número válido: " + value + "tamanho:" + value.length)
+            }
+        }
+        function mascara(o, f) {
+            v_obj = o
+            v_fun = f
+            setTimeout("execmascara()", 1)
+        }
+        function execmascara() {
+            v_obj.value = v_fun(v_obj.value)
+        }
+        function mtel(v) {
+            v = v.replace(/\D/g, "");             //Remove tudo o que não é dígito
+            v = v.replace(/^(\d{2})(\d)/g, "($1) $2"); //Coloca parênteses em volta dos dois primeiros dígitos
+            v = v.replace(/(\d)(\d{4})$/, "$1-$2");    //Coloca hífen entre o quarto e o quinto dígitos
+            return v;
+        }
+
+    </script>
+</body>
+
+</html>
